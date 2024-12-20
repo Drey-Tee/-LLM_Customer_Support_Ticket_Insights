@@ -11,10 +11,12 @@ from scripts.wordcloud_generator import generate_wordcloud
 import pandas as pd
 import os
 
+base_dir = os.path.dirname(os.path.abspath(__file__))
+
 # File paths
-raw_data_path = '/Users/dreytee/PycharmProjects/LLM_Ticket_Insights/data/customer_support_tickets.csv'
-cleaned_data_path = '/Users/dreytee/PycharmProjects/LLM_Ticket_Insights/data/cleaned_dataset.csv'
-static_dir = '/Users/dreytee/PycharmProjects/LLM_Ticket_Insights/static'
+raw_data_path = os.path.join(base_dir, 'data', 'customer_support_tickets.csv')
+cleaned_data_path = os.path.join(base_dir, 'data', 'cleaned_dataset.csv')
+static_dir = os.path.join(base_dir, 'static')
 
 # Ensure static directory exists
 os.makedirs(static_dir, exist_ok=True)

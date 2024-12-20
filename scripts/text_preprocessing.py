@@ -1,4 +1,5 @@
 import re
+import os
 import pandas as pd
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
@@ -9,7 +10,7 @@ nltk.download('stopwords')
 nltk.download('punkt')
 nltk.download('wordnet')
 
-
+base_dir = os.path.dirname(os.path.abspath(__file__))
 # Load NLTK's English stopwords
 try:
     stop_words = set(stopwords.words('english'))
@@ -111,6 +112,8 @@ def preprocess_dataset(file_path, output_path):
 
 # Run preprocessing
 preprocess_dataset(
-    file_path='/Users/dreytee/PycharmProjects/LLM_Ticket_Insights/data/customer_support_tickets.csv',
-    output_path='/Users/dreytee/PycharmProjects/LLM_Ticket_Insights/data/cleaned_dataset.csv'
+    file_path='data/customer_support_tickets.csv',
+    output_path='data/cleaned_dataset.csv'
+
 )
+
