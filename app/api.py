@@ -13,10 +13,10 @@ template_folder_path = os.path.join(base_dir, '../templates')
 app = Flask(__name__, template_folder=template_folder_path)
 
 # Load dataset and model
-
 cleaned_data_path = os.path.join(base_dir, '../data/cleaned_dataset.csv')
 static_dir = os.path.join(base_dir, 'static')
 model_path = os.path.join(base_dir, 'customer_support_model.pkl')
+
 if os.path.exists(model_path):
     model = joblib.load(model_path)
 else:
@@ -33,9 +33,20 @@ def index():
 @app.route('/predict', methods=['POST'])
 def predict():
     input_data = request.json
-    features = [[input_data['Customer Age'], input_data['Ticket Priority Numeric'], input_data['Sentiment Score']]]
 
+    # Validate Ticket Priority Numeric range
+    ticket_priority_numeric = input_data.get('Ticket Priority Numeric')
+    if not (1 <= ticket_priority_numeric <= 3):
+        return jsonify({"error": "Ticket Priority Numeric must be between 1 and 3."}), 400
+
+    # Prepare features and make a prediction
+    features = [[
+        input_data['Customer Age'],
+        ticket_priority_numeric,
+        input_data['Sentiment Score']
+    ]]
     prediction = model.predict(features)
+
     return jsonify({'prediction': bool(prediction[0])})
 
 
