@@ -1,11 +1,44 @@
-pandas
-numpy
-matplotlib
-seaborn
-wordcloud
-textblob
-flask
-scikit-learn
-nltk
-joblib
+altgraph @ file:///AppleInternal/Library/BuildRoots/bd680bd8-563b-11ef-bf16-8a553ba56670/Library/Caches/com.apple.xbs/Sources/python3/altgraph-0.17.2-py2.py3-none-any.whl
+blinker==1.9.0
+boto==2.49.0
+click==8.1.7
+contourpy==1.3.0
+cycler==0.12.1
+Flask==3.1.0
+fonttools==4.55.3
+future @ file:///AppleInternal/Library/BuildRoots/bd680bd8-563b-11ef-bf16-8a553ba56670/Library/Caches/com.apple.xbs/Sources/python3/future-0.18.2-py3-none-any.whl
 gunicorn==19.7.1
+imbalanced-learn==0.12.4
+imblearn==0.0
+importlib_metadata==8.5.0
+importlib_resources==6.4.5
+itsdangerous==2.2.0
+Jinja2==3.1.4
+joblib==1.4.2
+kiwisolver==1.4.7
+macholib @ file:///AppleInternal/Library/BuildRoots/bd680bd8-563b-11ef-bf16-8a553ba56670/Library/Caches/com.apple.xbs/Sources/python3/macholib-1.15.2-py2.py3-none-any.whl
+MarkupSafe==3.0.2
+matplotlib==3.9.4
+nltk==3.9.1
+numpy==2.0.2
+packaging==24.2
+pandas==2.2.3
+pillow==11.0.0
+pipdeptree==2.24.0
+pyparsing==3.2.0
+python-dateutil==2.9.0.post0
+pytz==2024.2
+regex==2024.11.6
+scikit-learn==1.6.0
+scipy==1.13.1
+seaborn==0.13.2
+six @ file:///AppleInternal/Library/BuildRoots/bd680bd8-563b-11ef-bf16-8a553ba56670/Library/Caches/com.apple.xbs/Sources/python3/six-1.15.0-py2.py3-none-any.whl
+textblob==0.18.0.post0
+threadpoolctl==3.5.0
+tqdm==4.67.1
+tzdata==2024.2
+Werkzeug==3.1.3
+wordcloud==1.9.4
+z3==0.2.0
+z3-solver==4.11.2.0
+zipp==3.21.0
