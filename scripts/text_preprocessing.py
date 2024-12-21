@@ -94,6 +94,7 @@ def preprocess_dataset(file_path, output_path):
         return TextBlob(text).sentiment.polarity
 
     df['Sentiment Score'] = df['Cleaned Text'].apply(get_sentiment_score)
+    df['Sentiment Score'] = df['Sentiment Score'].fillna(0)  # Assign neutral sentiment
 
     # Drop Irrelevant Columns
     if 'Customer Email' in df.columns:

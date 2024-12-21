@@ -31,6 +31,7 @@ def index():
 
 
 @app.route('/predict', methods=['POST'])
+@app.route('/predict', methods=['POST'])
 def predict():
     input_data = request.json
 
@@ -39,11 +40,16 @@ def predict():
     if not (1 <= ticket_priority_numeric <= 3):
         return jsonify({"error": "Ticket Priority Numeric must be between 1 and 3."}), 400
 
+    # Check sentiment score
+    sentiment_score = input_data.get('Sentiment Score')
+    if sentiment_score < 0:
+        return jsonify({'prediction': False})  # Negative sentiment = unresolved
+
     # Prepare features and make a prediction
     features = [[
         input_data['Customer Age'],
         ticket_priority_numeric,
-        input_data['Sentiment Score']
+        sentiment_score
     ]]
     prediction = model.predict(features)
 
@@ -51,5 +57,5 @@ def predict():
 
 
 if __name__ == '__main__':
-    port = int(os.environ.get("PORT", 5000))  # Default to 5000 if PORT is not set
+    port = int(os.environ.get("PORT", 5001))  # Default to 5000 if PORT is not set
     app.run(host="0.0.0.0", port=port, debug=True)

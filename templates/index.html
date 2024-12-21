@@ -19,7 +19,8 @@
             border-radius: 10px;
             padding: 30px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            max-width: 400px;
+            max-width: 500px; /* Increased form width */
+            width: 100%;
             text-align: center;
         }
         h1 {
@@ -35,7 +36,7 @@
         input {
             width: 100%;
             padding: 10px;
-            margin-bottom: 20px;
+            margin-bottom: 3px; /* Reduced margin between input box and description */
             border: 1px solid #ccc;
             border-radius: 5px;
         }
@@ -52,51 +53,72 @@
         button:hover {
             background-color: #0056b3;
         }
+        .help-text {
+            font-size: 14px;
+            color: #888;
+            margin-bottom: 10px; /* Maintained margin for help text */
+            text-align: left;
+        }
         #predictionResult {
             margin-top: 20px;
             font-size: 18px;
             font-weight: bold;
-            color: #007bff;
+        }
+        .resolved {
+            color: green;
+        }
+        .notResolved {
+            color: red;
+        }
+        .default {
+            color: blue;
         }
     </style>
     <script>
         async function predictComplaint() {
-        const customerAge = document.getElementById('customerAge').value;
-        const ticketPriority = document.getElementById('ticketPriority').value;
-        const sentimentScore = document.getElementById('sentimentScore').value;
+            const customerAge = document.getElementById('customerAge').value;
+            const ticketPriority = document.getElementById('ticketPriority').value;
+            const sentimentScore = document.getElementById('sentimentScore').value;
 
-        const inputData = {
-            "Customer Age": parseInt(customerAge),
-            "Ticket Priority Numeric": parseInt(ticketPriority),
-            "Sentiment Score": parseFloat(sentimentScore)
-        };
+            const inputData = {
+                "Customer Age": parseInt(customerAge),
+                "Ticket Priority Numeric": parseInt(ticketPriority),
+                "Sentiment Score": parseFloat(sentimentScore)
+            };
 
-        try {
-            const response = await fetch('/predict', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(inputData)
-            });
+            try {
+                const response = await fetch('/predict', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(inputData)
+                });
 
-        if (!response.ok) {
-            const error = await response.json();
-            document.getElementById('predictionResult').textContent =
-                `Error: ${error.error}`;
-            return;
+                if (!response.ok) {
+                    const error = await response.json();
+                    document.getElementById('predictionResult').textContent =
+                        `Error: ${error.error}`;
+                    document.getElementById('predictionResult').className = 'default';
+                    return;
+                }
+
+                const result = await response.json();
+                const predictionMessage = result.prediction ? "The ticket will be resolved." : "The ticket will not be resolved.";
+                document.getElementById('predictionResult').textContent = predictionMessage;
+
+                if (result.prediction) {
+                    document.getElementById('predictionResult').className = 'resolved';
+                } else {
+                    document.getElementById('predictionResult').className = 'notResolved';
+                }
+            } catch (error) {
+                document.getElementById('predictionResult').textContent =
+                    "Error occurred while making the prediction.";
+                document.getElementById('predictionResult').className = 'default';
+                console.error(error);
+            }
         }
-
-        const result = await response.json();
-        document.getElementById('predictionResult').textContent =
-            result.prediction ? "The ticket will be resolved." : "The ticket will not be resolved.";
-        } catch (error) {
-            document.getElementById('predictionResult').textContent =
-                "Error occurred while making the prediction.";
-            console.error(error);
-        }
-    }
-
     </script>
 </head>
 <body>
@@ -107,18 +129,20 @@
         <form onsubmit="event.preventDefault(); predictComplaint();">
             <label for="customerAge">Customer Age:</label>
             <input type="number" id="customerAge" required>
+            <p class="help-text">Enter the age of the customer in years.</p>
 
-           <label for="ticketPriority">Ticket Priority (Numeric):</label>
+            <label for="ticketPriority">Ticket Priority (Numeric):</label>
             <input type="number" id="ticketPriority" min="1" max="3" required>
-
+            <p class="help-text">1 = Low, 2 = Medium, 3 = High.</p>
 
             <label for="sentimentScore">Sentiment Score:</label>
             <input type="number" step="0.01" id="sentimentScore" required>
+            <p class="help-text">Sentiment ranges from -1 (highly negative) to 1 (highly positive).</p>
 
             <button type="submit">Predict</button>
         </form>
 
-        <p id="predictionResult"></p>
+        <p id="predictionResult" class="default"></p>
     </div>
 </body>
 </html>
