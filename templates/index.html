@@ -136,7 +136,7 @@
             <p class="help-text">1 = Low, 2 = Medium, 3 = High.</p>
 
             <label for="sentimentScore">Sentiment Score:</label>
-            <input type="number" step="0.01" id="sentimentScore" required>
+            <input type="number" step="0.01" id="sentimentScore" min="-1" max="1" required>
             <p class="help-text">Sentiment ranges from -1 (highly negative) to 1 (highly positive).</p>
 
             <button type="submit">Predict</button>

@@ -42,6 +42,12 @@ def predict():
 
     # Check sentiment score
     sentiment_score = input_data.get('Sentiment Score')
+
+    # Validate sentiment score to be between -1 and 1
+    if sentiment_score < -1 or sentiment_score > 1:
+        return jsonify({'error': 'Sentiment score must be between -1 and 1.'})
+
+    # If sentiment score is valid, proceed with the prediction
     if sentiment_score < 0:
         return jsonify({'prediction': False})  # Negative sentiment = unresolved
 
