@@ -42,6 +42,8 @@ Visualizing predicted probabilities showed a clear downward trend for sentiment 
 
 A Flask-based REST API was developed to deploy the predictive model, enabling real-time ticket resolution predictions.
 The API is designed for easy integration with existing customer support systems, providing predictions based on input features such as Customer Age, Ticket Priority, and Sentiment Score.
+API url: https://linguistic-cherice-dreysconcepts-789328f8.koyeb.app/
+![api.png](static%2Fapi.png)
 
 # Next Steps
 1. Address class imbalance using oversampling, undersampling, or class-weighted modeling techniques.
